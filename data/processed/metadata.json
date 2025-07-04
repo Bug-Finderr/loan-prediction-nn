@@ -1,0 +1,58 @@
+{
+  "dataset": {
+    "original_samples": 396030,
+    "final_samples": 396030,
+    "original_features": 28,
+    "final_features": 25,
+    "target_balance": {
+      "fully_paid_pct": 0.8038709188697826,
+      "charged_off_pct": 0.19612908113021743
+    }
+  },
+  "data_quality": {
+    "missing_handled": [
+      "mort_acc",
+      "emp_length",
+      "pub_rec_bankruptcies",
+      "revol_util"
+    ],
+    "features_dropped": [
+      "sub_grade_encoded",
+      "installment_to_income_ratio",
+      "total_acc",
+      "loan_amnt",
+      "emp_title",
+      "title",
+      "address"
+    ],
+    "multicollinear_removed": [
+      "sub_grade_encoded",
+      "installment_to_income_ratio",
+      "total_acc",
+      "loan_amnt"
+    ]
+  },
+  "features": {
+    "engineered_count": 8,
+    "top_predictors": [
+      "grade_numeric",
+      "mort_acc",
+      "annual_inc",
+      "emp_length_num",
+      "credit_history_length"
+    ],
+    "categorical_encoded": 8,
+    "scaling_method": "StandardScaler"
+  },
+  "model_ready": {
+    "train_samples": 316824,
+    "test_samples": 79206,
+    "feature_count": 25,
+    "files_created": [
+      "train_data_scaled.csv",
+      "test_data_scaled.csv",
+      "feature_info.csv",
+      "scaler_params.csv"
+    ]
+  }
+}
