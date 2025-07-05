@@ -4,7 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LeakyReLU, Input
 from tensorflow.keras.optimizers import Adam
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
+from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score, roc_auc_score, confusion_matrix
 
 train_data = pd.read_csv('data/processed/train_data_scaled.csv')
 
@@ -34,17 +34,22 @@ _ = model.fit(
     verbose=1
 )
 
-preds = (model.predict(X_val) > 0.5).astype(int)
+probs = model.predict(X_val)
+preds = (probs > 0.5).astype(int)
 metrics = {
     'f1_score': f1_score(y_val, preds),
     'accuracy': accuracy_score(y_val, preds),
     'precision': precision_score(y_val, preds),
-    'recall': recall_score(y_val, preds)
+    'recall': recall_score(y_val, preds),
+    'auc_roc': roc_auc_score(y_val, probs)
 }
 
 print("\nValidation Metrics:")
 for metric, val in metrics.items():
     print(f"{metric}: {val:.4f}")
+
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_val, preds))
 
 # save model
 model.save('src/bin/model.h5')
